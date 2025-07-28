@@ -1,0 +1,31 @@
+# 忽略 College 1 文件夹及其所有内容
+College 1/
+
+# 忽略 College 3 文件夹及其所有内容
+College 3/
+
+# 忽略 Others 文件夹及其所有内容
+Others/
+
+# 忽略 MkDocs 生成的网站文件夹
+site/
+
+# 忽略所有 .DS_Store 文件 (macOS)
+.DS_Store
+
+# 忽略所有 .vscode 文件夹 (VS Code)
+.vscode/
+
+# 忽略所有 .log 文件
+*.log
+
+# 忽略所有 .tmp 文件
+*.tmp
+
+# 如果你只希望 College 2 下的某个特定子文件夹被追踪，而忽略 College 2 下的其他所有内容，可以这样写：
+# College 2/*
+# !College 2/2.数据结构与算法分析（FDS）-Fundemental Data Structure/ # 排除这个文件夹不被忽略
+# 如果你不想追踪 College 2 下的大部分内容，只追踪其中的某个子文件夹，比如你之前提到的 "College 2/2.数据结构与算法分析（FDS）-Fundemental Data Structure/期末复习/自己笔记"
+# 那么可以这样：
+College 2/
+!College 2/2.数据结构与算法分析（FDS）-Fundemental Data Structure/期末复习/自己笔记/
