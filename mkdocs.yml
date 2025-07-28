@@ -1,0 +1,18 @@
+# E:\Study\College Lessons\mkdocs.yml
+
+site_name: 我的大学学习笔记
+# 你不需要在这里设置 site_url，因为它将作为主网站的一部分
+
+# 假设你的笔记 Markdown 文件直接在 College Lessons 根目录下
+docs_dir: . 
+
+nav:
+  - 简介: README.md # 确保你有 README.md 作为主页
+  - 大一: College 1/index.md # 示例，你需要根据实际文件调整路径
+  - 大二: College 2/index.md
+  # ... 添加所有你的笔记目录和文件
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
