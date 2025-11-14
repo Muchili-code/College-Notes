@@ -26,9 +26,10 @@ College\ 2/*
 # 忽略此new.md
 College\ 2/2.数据结构与算法分析（FDS）-Fundemental\ Data\ Structure/期末复习/自己笔记/new.md
 
-# 忽略 College 3 文件和文件夹
-College 3/*
-# 但不忽略此路径下的文件
-!College 3/1.嵌入式系统/自己笔记/
+# 忽略 College 3 文件夹下的所有内容，但排除掉 '1.嵌入式系统' 目录
+College\ 3/*
+!College\ 3/1.嵌入式系统/
 
-
+# 忽略 1.嵌入式系统/ 目录下除 '自己笔记/' 之外的其他内容
+College\ 3/1.嵌入式系统/*
+!College\ 3/1.嵌入式系统/自己笔记/
