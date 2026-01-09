@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Web 开发：从基础到高级框架</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #003366;
+            --secondary: #20e3b2;
+            --bg-cream: #fdfcf7;
+            --text-main: #334455;
+            --slide-width: 1280px;
+            --slide-height: 720px;
+        }
+
+        /* 1. 基础容器与缩放逻辑 */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background-color: #1a1a1a; 
+            overflow: hidden; 
+            font-family: 'Noto Sans SC', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        #presentation {
+            width: var(--slide-width);
+            height: var(--slide-height);
+            position: relative;
+            transform-origin: center center;
+            transition: transform 0.2s ease-out;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: var(--bg-cream);
+            display: none; /* 默认隐藏 */
+            padding: 60px;
+            color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .slide.active { display: flex; flex-direction: column; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* 2. 排版系统 */
+        h1 { font-family: 'Noto Serif SC', serif; font-size: 85px; color: #fff; line-height: 1.1; }
+        .slide-title { font-size: 48px; margin-bottom: 40px; border-left: 10px solid var(--primary); padding-left: 25px; font-family: 'Noto Serif SC', serif; }
+        h3 { font-size: 32px; margin-bottom: 20px; color: var(--primary); }
+        p, li { font-size: 24px; line-height: 1.6; color: var(--text-main); }
+        
+        pre { 
+            font-family: 'Fira Code', monospace; 
+            background: #1a202c; 
+            color: #e2e8f0; 
+            padding: 25px; 
+            border-radius: 12px; 
+            font-size: 18px; 
+            line-height: 1.4; 
+            overflow: hidden;
+            border: 1px solid #2d3748;
+        }
+        code { color: var(--secondary); font-weight: 500; }
+
+        /* 3. 布局工具 */
+        .content-area { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        
+        .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .tile { 
+            background: var(--primary); 
+            color: #fff; 
+            padding: 30px; 
+            border-radius: 15px; 
+            text-align: center;
+        }
+        .tile i { font-size: 50px; color: var(--secondary); margin-bottom: 20px; }
+        .tile h4 { font-size: 26px; margin-bottom: 10px; }
+        .tile p { font-size: 18px; color: rgba(255,255,255,0.8); }
+
+        /* 4. 导航控制 */
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        .btn {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        .btn:hover { background: var(--secondary); color: var(--primary); }
+        
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 5px;
+            background: var(--secondary);
+            transition: width 0.3s;
+            z-index: 101;
+        }
+
+        /* 5. 装饰 */
+        .badge { display: inline-block; background: var(--secondary); color: var(--primary); padding: 5px 15px; border-radius: 20px; font-weight: bold; margin-bottom: 15px; font-size: 18px; }
+        .table-custom { width: 100%; border-collapse: collapse; }
+        .table-custom th { background: var(--primary); color: #fff; padding: 15px; text-align: left; font-size: 22px; }
+        .table-custom td { padding: 15px; border-bottom: 1px solid #ddd; font-size: 18px; }
+    </style>
+</head>
+<body>
+
+    <div id="presentation">
+        
+        <!-- Slide 1: 封面 -->
+        <div class="slide active" style="background: var(--primary); justify-content: center; align-items: center; text-align: center;">
+            <div class="content-area">
+                <div class="badge">JAVA WEB 全栈课程</div>
+                <h1>Web 开发：从 B/S 架构<br>到 Spring 框架</h1>
+                <div style="width: 150px; height: 6px; background: var(--secondary); margin: 40px auto;"></div>
+                <p style="color: rgba(255,255,255,0.8); font-size: 30px;">系统解析：协议、Servlet、容器与 Spring 生态</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: 什么是 B/S 架构 -->
+        <div class="slide">
+            <h2 class="slide-title">B/S 架构深度解析</h2>
+            <div class="content-area">
+                <div class="two-column">
+                    <div>
+                        <h3>浏览器 / 服务器模式</h3>
+                        <p>访问网站完成操作，本质上都是基于 Web 的 <strong>B/S (Browser/Server)</strong> 架构。</p>
+                        <ul style="margin-top: 25px; list-style: none;">
+                            <li style="margin-bottom: 15px;"><i class="fa-solid fa-check-circle" style="color: var(--secondary)"></i> <strong>客户端：</strong> 只需安装通用浏览器。</li>
+                            <li style="margin-bottom: 15px;"><i class="fa-solid fa-check-circle" style="color: var(--secondary)"></i> <strong>逻辑与数据：</strong> 全部存储并运行在服务器端。</li>
+                            <li style="margin-bottom: 15px;"><i class="fa-solid fa-check-circle" style="color: var(--secondary)"></i> <strong>分发：</strong> 浏览器请求页面，服务器返回资源并展示。</li>
+                        </ul>
+                    </div>
+                    <div style="background: #eef2f7; padding: 40px; border-radius: 20px; border: 2px dashed var(--primary); text-align: center;">
+                        <i class="fa-solid fa-network-wired" style="font-size: 100px; color: var(--primary); margin-bottom: 20px;"></i>
+                        <p style="font-style: italic;">[ B/S 架构示意图：终端 -> 互联网 -> 数据中心 ]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: 请求流程 -->
+        <div class="slide">
+            <h2 class="slide-title">浏览器请求页面的全生命周期</h2>
+            <div class="content-area">
+                <div class="tile-grid">
+                    <div class="tile">
+                        <i class="fa-solid fa-link"></i>
+                        <h4>1. 建立 TCP 连接</h4>
+                        <p>通过三次握手与服务器建立稳定的双向数据通路。</p>
+                    </div>
+                    <div class="tile">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <h4>2. 发送 HTTP 请求</h4>
+                        <p>将请求路径、主机名及浏览器信息打包发送给服务器。</p>
+                    </div>
+                    <div class="tile">
+                        <i class="fa-solid fa-desktop"></i>
+                        <h4>3. 渲染网页内容</h4>
+                        <p>接收响应，解析 HTML 并呈现给用户最终的交互界面。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: HTTP 头部详解 -->
+        <div class="slide">
+            <h2 class="slide-title">常用 HTTP 请求头字段</h2>
+            <div class="content-area">
+                <table class="table-custom">
+                    <thead>
+                        <tr>
+                            <th>Header 字段</th>
+                            <th>核心功能与说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Host</strong></td><td>表示请求的主机名（用于区分同一服务器上的多个网站）。</td></tr>
+                        <tr><td><strong>User-Agent</strong></td><td>客户端标识，如 <code>Chrome/79</code> 或 <code>Mozilla/5.0</code>。</td></tr>
+                        <tr><td><strong>Accept</strong></td><td>浏览器能接收的资源类型（如 <code>text/*</code> 或 <code>image/*</code>）。</td></tr>
+                        <tr><td><strong>Accept-Language</strong></td><td>浏览器偏好语言，用于返回不同语言版本的网页。</td></tr>
+                        <tr><td><strong>Accept-Encoding</strong></td><td>支持的压缩格式（如 <code>gzip</code>, <code>deflate</code>, <code>br</code>）。</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 5: Java Servlet -->
+        <div class="slide">
+            <h2 class="slide-title">Java Servlet：Web 开发核心</h2>
+            <div class="content-area">
+                <div class="two-column">
+                    <div>
+                        <h3>分层治理，各司其职</h3>
+                        <p>处理 TCP 连接、解析协议等底层琐事由 <strong>Web 服务器</strong> (如 Tomcat) 负责。</p>
+                        <p style="margin-top: 15px;">开发者只需利用 <strong>Servlet API</strong> 编写业务逻辑。</p>
+                    </div>
+                    <pre><code>// 编写自己的 Servlet
+@WebServlet("/hello")
+public class HelloServlet 
+  extends HttpServlet {
+
+  @Override
+  protected void doGet(
+    HttpServletRequest req, 
+    HttpServletResponse resp) 
+    throws IOException {
+    
+    // 逻辑：向浏览器返回文本
+    resp.getWriter().write("Hello Web!");
+  }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: 什么是框架 -->
+        <div class="slide" style="background-color: var(--primary); color: white;">
+            <h2 class="slide-title" style="border-left-color: var(--secondary); color: white;">框架：巨人的肩膀</h2>
+            <div class="content-area">
+                <div style="font-size: 32px; font-style: italic; border-left: 5px solid var(--secondary); padding-left: 30px; margin-bottom: 40px;">
+                    “框架是应用程序的骨架，它不只是能让你做什么，更是它规定你不能做什么。”
+                </div>
+                <div class="tile-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div style="padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                        <h4>结构化</h4>
+                        <p>使混乱的代码逻辑变得清晰且模块化。</p>
+                    </div>
+                    <div style="padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                        <h4>凝结经验</h4>
+                        <p>集成了前人解决通用问题的最佳实践。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Spring Boot 特点 -->
+        <div class="slide">
+            <h2 class="slide-title">Spring Boot 的革命性特点</h2>
+            <div class="content-area">
+                <div class="two-column">
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 12px;"><i class="fa-solid fa-circle-dot" style="color:var(--primary)"></i> <strong>独立运行：</strong> 直接打包为 JAR 即可运行。</li>
+                        <li style="margin-bottom: 12px;"><i class="fa-solid fa-circle-dot" style="color:var(--primary)"></i> <strong>内嵌容器：</strong> 无需外部安装 Tomcat。</li>
+                        <li style="margin-bottom: 12px;"><i class="fa-solid fa-circle-dot" style="color:var(--primary)"></i> <strong>自动配置：</strong> 极大地简化了 Maven 和 XML 配置。</li>
+                        <li style="margin-bottom: 12px;"><i class="fa-solid fa-circle-dot" style="color:var(--primary)"></i> <strong>自带监控：</strong> 对正在运行的项目提供实时监控。</li>
+                    </ul>
+                    <div style="background: #111; padding: 20px; border-radius: 15px;">
+                        <p style="color: #20e3b2; font-family: 'Fira Code'; font-size: 16px;"># 运行一个 Spring Boot 应用</p>
+                        <p style="color: #fff; font-family: 'Fira Code'; font-size: 20px;">java -jar myapp.jar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: 结语 -->
+        <div class="slide" style="justify-content: center; align-items: center; text-align: center;">
+            <div class="content-area">
+                <i class="fa-solid fa-graduation-cap" style="font-size: 80px; color: var(--secondary); margin-bottom: 30px;"></i>
+                <h2 style="font-size: 60px;">课程总结</h2>
+                <p style="margin-top: 20px;">从底层的 HTTP 连接，到中层的 Servlet API，<br>再到现代化的 Spring Boot 框架，您已经掌握了 Java Web 的全貌。</p>
+                <div style="margin-top: 50px; display: flex; gap: 20px; justify-content: center;">
+                    <span class="badge">Spring MVC</span>
+                    <span class="badge">MyBatis</span>
+                    <span class="badge">Maven</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 进度条 -->
+    <div class="progress-bar" id="progress"></div>
+
+    <!-- 控制按钮 -->
+    <div class="controls">
+        <button class="btn" onclick="prevSlide()"><i class="fa-solid fa-arrow-left"></i></button>
+        <button class="btn" onclick="nextSlide()"><i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const presentation = document.getElementById('presentation');
+        const progressBar = document.getElementById('progress');
+
+        // 1. 初始化显示
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            // 更新进度条
+            const progressWidth = ((index + 1) / slides.length) * 100;
+            progressBar.style.width = progressWidth + '%';
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        // 2. 键盘支持
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        // 3. 屏幕自动适配缩放
+        function adjustScale() {
+            const winW = window.innerWidth;
+            const winH = window.innerHeight;
+            const slideW = 1280;
+            const slideH = 720;
+
+            const scale = Math.min(winW / slideW, winH / slideH) * 0.95; // 留一点边距
+            presentation.style.transform = `scale(${scale})`;
+        }
+
+        window.addEventListener('resize', adjustScale);
+        window.onload = () => {
+            adjustScale();
+            showSlide(0);
+        };
+        
+        // 点击屏幕右半部分下一页，左半部分前一页
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.controls') || e.target.closest('pre')) return;
+            if (e.clientX > window.innerWidth / 2) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+        });
+    </script>
+</body>
+</html>
