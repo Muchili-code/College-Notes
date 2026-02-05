@@ -11,19 +11,19 @@
 在嵌入式Linux开发中，多线程（Multi-threading）是一种非常重要的并发编程模型。课件中特别强调了它相对于多进程（Multi-process）的“节俭”特性：
 
 - **资源消耗少**：
-  - **启动开销**：启动一个线程所花费的空间和资源远远小于启动一个进程。进程需要独立的地址空间、文件描述符表等，而线程依附于进程存在。
-  - **地址空间共享**：运行于同一个进程中的多个线程，它们彼此之间**使用相同的地址空间**，共享大部分数据（如全局变量、堆内存、文件描述符）。
+    - **启动开销**：启动一个线程所花费的空间和资源远远小于启动一个进程。进程需要独立的地址空间、文件描述符表等，而线程依附于进程存在。
+    - **地址空间共享**：运行于同一个进程中的多个线程，它们彼此之间**使用相同的地址空间**，共享大部分数据（如全局变量、堆内存、文件描述符）。
 - **切换效率高**：
-  - **上下文切换**：线程间彼此切换所需的时间远远小于进程间切换所需要的时间。因为线程切换不需要切换页表（内存映射），只需要切换寄存器状态和栈。
+    - **上下文切换**：线程间彼此切换所需的时间远远小于进程间切换所需要的时间。因为线程切换不需要切换页表（内存映射），只需要切换寄存器状态和栈。
 - **通信方便**：
-  - **直接数据访问**：因为共享地址空间，一个线程的数据可以直接被其他线程访问，无需像进程间通信（IPC）那样通过复杂的管道、消息队列或共享内存机制。
+    - **直接数据访问**：因为共享地址空间，一个线程的数据可以直接被其他线程访问，无需像进程间通信（IPC）那样通过复杂的管道、消息队列或共享内存机制。
 
 ### 2. Linux 线程标准
 
 - **POSIX 线程 (pthread)**：Linux 系统下的多线程遵循 POSIX (Portable Operating System Interface) 线程接口标准。
 - **开发环境**：
-  - 头文件：`#include <pthread.h>`
-  - 编译链接：需要链接 `libpthread.a` 或动态库，编译时通常需加上 `-lpthread` 参数（例如：`gcc main.c -lpthread`）。
+    - 头文件：`#include <pthread.h>`
+    - 编译链接：需要链接 `libpthread.a` 或动态库，编译时通常需加上 `-lpthread` 参数（例如：`gcc main.c -lpthread`）。
 
 ## 第二部分：线程的基本管理 (Creation & Termination)
 
@@ -49,10 +49,10 @@
 
 - **返回值**：
 
-  - 成功：返回 `0`。
-  - 失败：返回错误码（不为0）。
-    - `EAGAIN`: 系统限制创建新线程（如线程数过多）。
-    - `EINVAL`: 属性值非法。
+    - 成功：返回 `0`。
+    - 失败：返回错误码（不为0）。
+        - `EAGAIN`: 系统限制创建新线程（如线程数过多）。
+        - `EINVAL`: 属性值非法。
 
 - **执行流程**：创建成功后，新线程开始运行 `start_routine`，而原线程（主线程）继续执行下一行代码。
 
@@ -62,12 +62,12 @@
 
 1. **自然结束**：线程函数执行完毕，自然返回。
 2. **自我结束 (`pthread_exit`)**：
-   - 原型：`void pthread_exit(void *value_ptr);`
-   - 参数：`value_ptr` 是线程的返回值（退出码），可以被其他线程通过 `pthread_join` 获取。
+     - 原型：`void pthread_exit(void *value_ptr);`
+     - 参数：`value_ptr` 是线程的返回值（退出码），可以被其他线程通过 `pthread_join` 获取。
 3. **被动结束 (`pthread_cancel`)**：
-   - 原型：`int pthread_cancel(pthread_t thread);`
-   - 功能：请求结束另一个线程。
-   - 注意：如果线程所在的**进程**结束了（例如主函数 `main` 返回或调用 `exit`），那么该进程内的**所有线程**都会被强行终止。
+     - 原型：`int pthread_cancel(pthread_t thread);`
+     - 功能：请求结束另一个线程。
+     - 注意：如果线程所在的**进程**结束了（例如主函数 `main` 返回或调用 `exit`），那么该进程内的**所有线程**都会被强行终止。
 
 > **案例参考**：请查看生成的代码文件 `01_thread_basic.c`
 
@@ -78,15 +78,15 @@
 线程创建时可以通过属性对象来精细控制线程的行为。
 
 - **初始化与销毁**：
-  - `pthread_attr_init(pthread_attr_t *attr)`: 初始化属性对象为默认值（必须在 `pthread_create` 前调用）。
-  - `pthread_attr_destroy(pthread_attr_t *attr)`: 销毁属性对象，释放资源。
+    - `pthread_attr_init(pthread_attr_t *attr)`: 初始化属性对象为默认值（必须在 `pthread_create` 前调用）。
+    - `pthread_attr_destroy(pthread_attr_t *attr)`: 销毁属性对象，释放资源。
 - **分离状态 (Detach State)**：这是课件中重点提到的属性。
-  - **绑定/非分离 (Joinable/Non-detached)**: 默认状态。线程结束时，其资源不会立即释放，必须由其他线程调用 `pthread_join` 来回收并获取返回值。
-  - **分离 (Detached)**: 线程结束时，系统自动回收资源。不能被 join。
+    - **绑定/非分离 (Joinable/Non-detached)**: 默认状态。线程结束时，其资源不会立即释放，必须由其他线程调用 `pthread_join` 来回收并获取返回值。
+    - **分离 (Detached)**: 线程结束时，系统自动回收资源。不能被 join。
 - **相关函数**：
-  - `pthread_attr_setdetachstate(attr, detachstate)`: 设置分离状态。
-  - `pthread_attr_getdetachstate(attr, detachstate)`: 获取分离状态。
-  - `detachstate` 可选值：`PTHREAD_CREATE_JOINABLE` (默认), `PTHREAD_CREATE_DETACHED`。
+    - `pthread_attr_setdetachstate(attr, detachstate)`: 设置分离状态。
+    - `pthread_attr_getdetachstate(attr, detachstate)`: 获取分离状态。
+    - `detachstate` 可选值：`PTHREAD_CREATE_JOINABLE` (默认), `PTHREAD_CREATE_DETACHED`。
 
 ### 2. 线程等待 (`pthread_join`)
 
@@ -102,8 +102,8 @@
 
 - **参数**：
 
-  - `thread`: 等待的目标线程 ID。
-  - `value_ptr`: 指向指针的指针，用于存储目标线程 `pthread_exit` 时返回的数据。
+    - `thread`: 等待的目标线程 ID。
+    - `value_ptr`: 指向指针的指针，用于存储目标线程 `pthread_exit` 时返回的数据。
 
 <img src="./images/线程join.png" alt="join" style="zoom: 33%;" />
 
@@ -122,14 +122,14 @@
 - **概念**：互斥锁只有两种状态：**锁定 (Lock)** 和 **非锁定 (Unlock)**。
 - **数据类型**：`pthread_mutex_t`
 - **核心函数**：
-  1. **初始化**：
-     - `pthread_mutex_init(&mutex, NULL)`: 动态初始化，`NULL` 表示默认属性。
-     - 或者静态初始化：`pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;`
-  2. **上锁**：
-     - `pthread_mutex_lock(&mutex)`: 尝试上锁。如果锁已被其他线程占用，当前线程**阻塞**（睡眠），直到锁被释放。
-     - `pthread_mutex_trylock(&mutex)`: 非阻塞版本。如果锁被占用，立即返回 `EBUSY`，不会等待。可用于防止死锁。
-  3. **解锁**：
-     - `pthread_mutex_unlock(&mutex)`: 释放锁，唤醒正在等待该锁的线程。
+    1. **初始化**：
+       - `pthread_mutex_init(&mutex, NULL)`: 动态初始化，`NULL` 表示默认属性。
+       - 或者静态初始化：`pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;`
+    2. **上锁**：
+       - `pthread_mutex_lock(&mutex)`: 尝试上锁。如果锁已被其他线程占用，当前线程**阻塞**（睡眠），直到锁被释放。
+       - `pthread_mutex_trylock(&mutex)`: 非阻塞版本。如果锁被占用，立即返回 `EBUSY`，不会等待。可用于防止死锁。
+    3. **解锁**：
+       - `pthread_mutex_unlock(&mutex)`: 释放锁，唤醒正在等待该锁的线程。
 
 > **案例参考**：请查看生成的代码文件 `03_mutex_lock.c`
 
@@ -148,13 +148,13 @@
 
 - **核心函数**：
   1. **初始化**：
-     - `pthread_cond_init(&cond, attr)`: 动态初始化。
+       - `pthread_cond_init(&cond, attr)`: 动态初始化。
   2. **等待**：
-     - `pthread_cond_wait(&cond, &mutex)`: 阻塞等待信号。注意必须传入互斥锁，因为需要在等待前解锁，唤醒后加锁。
-     - `pthread_cond_timedwait(&cond, &mutex, &abstime)`: 限时等待，超时后自动解除阻塞。
+       - `pthread_cond_wait(&cond, &mutex)`: 阻塞等待信号。注意必须传入互斥锁，因为需要在等待前解锁，唤醒后加锁。
+       - `pthread_cond_timedwait(&cond, &mutex, &abstime)`: 限时等待，超时后自动解除阻塞。
   3. **唤醒**：
-     - `pthread_cond_signal(&cond)`: 唤醒**一个**等待该条件的线程。
-     - `pthread_cond_broadcast(&cond)`: 唤醒**所有**等待该条件的线程。
+       - `pthread_cond_signal(&cond)`: 唤醒**一个**等待该条件的线程。
+       - `pthread_cond_broadcast(&cond)`: 唤醒**所有**等待该条件的线程。
 
 > **案例参考**：请查看生成的代码文件 `04_cond_var.c`
 
@@ -164,8 +164,8 @@
 
 - **头文件**：`#include <semaphore.h>` (注意不是 pthread.h，虽然常一起使用)
 - **核心操作**：
-  - **P操作 (Wait/Decrease)**: 想要使用资源，信号量减1。如果信号量为0，则阻塞等待。
-  - **V操作 (Post/Increase)**: 释放资源，信号量加1。如果有线程在等待，唤醒它。
+    - **P操作 (Wait/Decrease)**: 想要使用资源，信号量减1。如果信号量为0，则阻塞等待。
+    - **V操作 (Post/Increase)**: 释放资源，信号量加1。如果有线程在等待，唤醒它。
 - **核心函数**：
   1. `sem_init(sem_t *sem, int pshared, unsigned int value)`: 初始化。`value` 是初始值。
   2. `sem_wait(sem_t *sem)`: 阻塞等待，直到信号量 > 0，然后减1。
