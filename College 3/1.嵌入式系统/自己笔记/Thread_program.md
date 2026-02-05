@@ -138,26 +138,25 @@
 互斥锁用于“排他性”访问，而条件变量用于“等待某个事件发生”。它弥补了互斥锁的不足，允许线程在条件不满足时挂起，条件满足时被唤醒。通常与互斥锁配合使用。
 
 - **工作机制**：
-  1. 线程 A 获得互斥锁，检查条件。
-  2. 如果条件不满足，线程 A 调用 `pthread_cond_wait`。这会**原子地**释放互斥锁并进入睡眠状态。
-  3. 线程 B 获得互斥锁，改变条件（例如生产了数据）。
-  4. 线程 B 调用 `pthread_cond_signal` 通知等待的线程。
-  5. 线程 A 被唤醒，重新获得互斥锁，继续执行。
+    1. 线程 A 获得互斥锁，检查条件。
+    2. 如果条件不满足，线程 A 调用 `pthread_cond_wait`。这会**原子地**释放互斥锁并进入睡眠状态。
+    3. 线程 B 获得互斥锁，改变条件（例如生产了数据）。
+    4. 线程 B 调用 `pthread_cond_signal` 通知等待的线程。
+    5. 线程 A 被唤醒，重新获得互斥锁，继续执行。
 
 
 
 - **核心函数**：
+    1. **初始化**：
+        - `pthread_cond_init(&cond, attr)`: 动态初始化。
 
-  1. **初始化**：
-       - `pthread_cond_init(&cond, attr)`: 动态初始化。
+    2. **等待**：
+        - `pthread_cond_wait(&cond, &mutex)`: 阻塞等待信号。注意必须传入互斥锁，因为需要在等待前解锁，唤醒后加锁。
+        - `pthread_cond_timedwait(&cond, &mutex, &abstime)`: 限时等待，超时后自动解除阻塞。
 
-  2. **等待**：
-       - `pthread_cond_wait(&cond, &mutex)`: 阻塞等待信号。注意必须传入互斥锁，因为需要在等待前解锁，唤醒后加锁。
-       - `pthread_cond_timedwait(&cond, &mutex, &abstime)`: 限时等待，超时后自动解除阻塞。
-       
-  3. **唤醒**：
-       - `pthread_cond_signal(&cond)`: 唤醒**一个**等待该条件的线程。
-       - `pthread_cond_broadcast(&cond)`: 唤醒**所有**等待该条件的线程。
+    3. **唤醒**：
+        - `pthread_cond_signal(&cond)`: 唤醒**一个**等待该条件的线程。
+        - `pthread_cond_broadcast(&cond)`: 唤醒**所有**等待该条件的线程。
 
 > **案例参考**：请查看生成的代码文件 `04_cond_var.c`
 
@@ -170,11 +169,11 @@
     - **P操作 (Wait/Decrease)**: 想要使用资源，信号量减1。如果信号量为0，则阻塞等待。
     - **V操作 (Post/Increase)**: 释放资源，信号量加1。如果有线程在等待，唤醒它。
 - **核心函数**：
-  1. `sem_init(sem_t *sem, int pshared, unsigned int value)`: 初始化。`value` 是初始值。
-  2. `sem_wait(sem_t *sem)`: 阻塞等待，直到信号量 > 0，然后减1。
-  3. `sem_trywait(sem_t *sem)`: 非阻塞等待。
-  4. `sem_post(sem_t *sem)`: 增加信号量（V操作）。
-  5. `sem_destroy(sem_t *sem)`: 销毁信号量。
+    1. `sem_init(sem_t *sem, int pshared, unsigned int value)`: 初始化。`value` 是初始值。
+    2. `sem_wait(sem_t *sem)`: 阻塞等待，直到信号量 > 0，然后减1。
+    3. `sem_trywait(sem_t *sem)`: 非阻塞等待。
+    4. `sem_post(sem_t *sem)`: 增加信号量（V操作）。
+    5. `sem_destroy(sem_t *sem)`: 销毁信号量。
 
 > **案例参考**：请查看生成的代码文件 `05_sem_producer_consumer.c`
 
@@ -218,7 +217,7 @@ sem_post(sem_t *sem);
 sem_destroy(sem_t *sem);
 ```
 
-地址、其他参数、关键参数
+关键注意点：是否取地址、其他参数及其位置、关键参数，一般太会考参数类型
 
 
 
