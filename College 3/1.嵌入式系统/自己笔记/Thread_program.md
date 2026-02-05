@@ -123,13 +123,13 @@
 - **数据类型**：`pthread_mutex_t`
 - **核心函数**：
     1. **初始化**：
-       - `pthread_mutex_init(&mutex, NULL)`: 动态初始化，`NULL` 表示默认属性。
-       - 或者静态初始化：`pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;`
+        - `pthread_mutex_init(&mutex, NULL)`: 动态初始化，`NULL` 表示默认属性。
+        - 或者静态初始化：`pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;`
     2. **上锁**：
-       - `pthread_mutex_lock(&mutex)`: 尝试上锁。如果锁已被其他线程占用，当前线程**阻塞**（睡眠），直到锁被释放。
-       - `pthread_mutex_trylock(&mutex)`: 非阻塞版本。如果锁被占用，立即返回 `EBUSY`，不会等待。可用于防止死锁。
+        - `pthread_mutex_lock(&mutex)`: 尝试上锁。如果锁已被其他线程占用，当前线程**阻塞**（睡眠），直到锁被释放。
+        - `pthread_mutex_trylock(&mutex)`: 非阻塞版本。如果锁被占用，立即返回 `EBUSY`，不会等待。可用于防止死锁。
     3. **解锁**：
-       - `pthread_mutex_unlock(&mutex)`: 释放锁，唤醒正在等待该锁的线程。
+        - `pthread_mutex_unlock(&mutex)`: 释放锁，唤醒正在等待该锁的线程。
 
 > **案例参考**：请查看生成的代码文件 `03_mutex_lock.c`
 
@@ -147,11 +147,14 @@
 
 
 - **核心函数**：
+
   1. **初始化**：
        - `pthread_cond_init(&cond, attr)`: 动态初始化。
+
   2. **等待**：
        - `pthread_cond_wait(&cond, &mutex)`: 阻塞等待信号。注意必须传入互斥锁，因为需要在等待前解锁，唤醒后加锁。
        - `pthread_cond_timedwait(&cond, &mutex, &abstime)`: 限时等待，超时后自动解除阻塞。
+       
   3. **唤醒**：
        - `pthread_cond_signal(&cond)`: 唤醒**一个**等待该条件的线程。
        - `pthread_cond_broadcast(&cond)`: 唤醒**所有**等待该条件的线程。
