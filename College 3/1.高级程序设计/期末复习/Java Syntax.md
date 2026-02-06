@@ -206,7 +206,7 @@ String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
 >
 > **Tip:** The shortcut syntax is most often used when the values are known at the start. Use `new` with a size when you want to create an empty array and fill it later.
 
-> [!Warning]
+> [!WARNING]
 >
 > [ ] :  `new String[4]` 
 >
@@ -284,7 +284,7 @@ skip
 
 With method overloading, multiple methods can **have the same name with different parameters**:
 
-> [!caution]
+> [!CAUTION]
 >
 > Multiple methods can have the same name as long as the number and/or type of parameters are different.
 
@@ -367,7 +367,7 @@ public class Main {
 }
 ```
 
-> [!tip]
+> [!TIP]
 >
 > A class should always start with an **uppercase first letter**, and that the name of the java file should **match the class name**.
 
@@ -395,7 +395,7 @@ public class Main {
 
 You can also create an object of a class and access it in another class. This is often used for better organization of classes (one class has all the attributes and methods, while the other class holds the `main()` method (code to be executed)).
 
-> [!note]
+> [!NOTE]
 >
 > **Example**
 > we have created two files ==in the same directory/folder==:
@@ -479,7 +479,7 @@ public class Main {
 }
 ```
 
-> [!important]
+> [!IMPORTANT]
 >
 > A `static` method means it can be accessed without creating an object of the class. Unlike,a `public` method can only be accessed by objects.
 
@@ -506,7 +506,7 @@ public class Main {
 // Outputs 5
 ```
 
-> [!note]
+> [!NOTE]
 >
 > 1.The constructor name must **match the class name**, and it can't have a **return type** (like `void`).
 >
@@ -802,7 +802,7 @@ Unlike a "regular" class, an inner class can be `private` or `protected`. If you
 
 An inner class can also be `static`, which means that you can access it without creating an object of the outer class:
 
-> [!caution]
+> [!CAUTION]
 >
 > Just like `static` attributes and methods, a `static` inner class does not have access to members of the outer class.
 
