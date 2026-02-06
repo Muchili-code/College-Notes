@@ -2,26 +2,6 @@
 
 这份文档基于《高级程序设计-14 设计模式实例.pptx》整理，涵盖了课件中涉及的 **创建型**、**结构型**、**行为型** 三大类共 14 种设计模式。
 
-## 目录
-
-1. **创建型模式**
-   - [工厂模式 (Factory Pattern)](https://www.google.com/search?q=%231-工厂模式-factory-pattern)
-   - [单例模式 (Singleton Pattern)](https://www.google.com/search?q=%232-单例模式-singleton-pattern)
-2. **结构型模式**
-   - [适配器模式 (Adapter Pattern)](https://www.google.com/search?q=%233-适配器模式-adapter-pattern)
-   - [桥接模式 (Bridge Pattern)](https://www.google.com/search?q=%234-桥接模式-bridge-pattern)
-   - [外观模式 (Facade Pattern)](https://www.google.com/search?q=%235-外观模式-facade-pattern)
-   - [代理模式 (Proxy Pattern)](https://www.google.com/search?q=%236-代理模式-proxy-pattern)
-   - [装饰器模式 (Decorator Pattern)](https://www.google.com/search?q=%237-装饰器模式-decorator-pattern)
-3. **行为型模式**
-   - [观察者模式 (Observer Pattern)](https://www.google.com/search?q=%238-观察者模式-observer-pattern)
-   - [模板模式 (Template Pattern)](https://www.google.com/search?q=%239-模板模式-template-pattern)
-   - [命令模式 (Command Pattern)](https://www.google.com/search?q=%2310-命令模式-command-pattern)
-   - [迭代器模式 (Iterator Pattern)](https://www.google.com/search?q=%2311-迭代器模式-iterator-pattern)
-   - [空对象模式 (Null Object Pattern)](https://www.google.com/search?q=%2312-空对象模式-null-object-pattern)
-   - [策略模式 (Strategy Pattern)](https://www.google.com/search?q=%2313-策略模式-strategy-pattern)
-   - [MVC 模式](https://www.google.com/search?q=%2314-mvc-模式)
-
 ## 第一部分：创建型模式
 
 *关注对象的创建过程，隐藏创建逻辑。*
@@ -985,9 +965,9 @@ class StudentController {
 
 ---
 
-# 《高级程序设计-14 设计模式实例》全维度知识汇总
+## 小结
 
-## 一、 设计原则 (Design Principles) - 软件质量的基石
+### 一、 设计原则 (Design Principles) - 软件质量的基石
 
 在设计模式之前，PPT 强调了高质量软件架构必须遵循的七大原则，这是衡量代码“好坏”的根本标准：
 
@@ -1013,7 +993,7 @@ class StudentController {
    - **核心**：一个类只负责一项职责。
    - **意义**：降低类的复杂度，提高可维护性。
 
-## 二、 设计模式分类 (Categories of Design Patterns)
+### 二、 设计模式分类 (Categories of Design Patterns)
 
 PPT 将 23 种设计模式根据目的分为三大类：
 
@@ -1023,9 +1003,9 @@ PPT 将 23 种设计模式根据目的分为三大类：
 | **结构型 (Structural)** | 关注类和对象的组合，通过继承或组合接口定义新功能。        | Adapter, Bridge, Filter, Composite, Facade, Decorator, Flyweight, Proxy |
 | **行为型 (Behavioral)** | 特别关注对象之间的通信。                                  | Observer, Mediator, Iterator, Interpreter, Command, Memento, State, Strategy, Template, Visitor, Chain of Responsibility, Null Object |
 
-## 三、 核心模式详解、代码实现与深度分析
+### 三、 核心模式详解、代码实现与深度分析
 
-### 1. 观察者模式 (Observer Pattern) - [行为型]
+#### 1. 观察者模式 (Observer Pattern) - [行为型]
 
 - **定义**：定义一对多依赖，当主体（Subject）状态改变时，通知并自动更新所有依赖者。
 - **关键代码分析**：
@@ -1083,7 +1063,7 @@ public class BinaryObserver extends Observer {
   - **优点**：目标与观察者解耦；支持广播通信。
   - **应用场景**：触发链机制（A -> B -> C）。
 
-### 2. 适配器模式 (Adapter Pattern) - [结构型]
+#### 2. 适配器模式 (Adapter Pattern) - [结构型]
 
 - **定义**：作为不兼容接口间的桥梁。
 - **PPT案例**：`AudioPlayer` (MP3) 通过适配器兼容播放 VLC 和 MP4。
@@ -1125,7 +1105,7 @@ public class MediaAdapter implements MediaPlayer {
 
 - **分析**：通过继承或**组合**已有的类，实现目标接口，解决接口不匹配问题。
 
-### 3. 桥接模式 (Bridge Pattern) - [结构型]
+#### 3. 桥接模式 (Bridge Pattern) - [结构型]
 
 - **定义**：抽象与实现解耦，使二者独立变化。
 - **解决**：多维度变化导致的“类爆炸”问题。
@@ -1171,7 +1151,7 @@ public class Circle extends Shape {
 
 - **核心技巧**：通过组合代替继承。
 
-### 4. 工厂模式 (Factory Pattern) - [创建型]
+#### 4. 工厂模式 (Factory Pattern) - [创建型]
 
 - **定义**：定义创建对象的接口，由子类决定实例化哪一个类。
 
@@ -1198,7 +1178,7 @@ public class ShapeFactory {
 
 - **分析**：屏蔽产品实现细节，增加产品只需扩展工厂。
 
-### 5. 单例模式 (Singleton Pattern) - [创建型]
+#### 5. 单例模式 (Singleton Pattern) - [创建型]
 
 - **定义**：保证类仅有一个实例。
 
@@ -1219,7 +1199,7 @@ public class SingleObject {
 }
 ```
 
-### 6. 外观模式 (Facade Pattern) - [结构型]
+#### 6. 外观模式 (Facade Pattern) - [结构型]
 
 - **定义**：为复杂子系统提供一致的界面。
 - **角色**：外观类作为“接待员”，客户端只需与外观类交互。
@@ -1240,7 +1220,7 @@ public class ShapeMaker {
 }
 ```
 
-### 7. 代理模式 (Proxy Pattern) - [结构型]
+#### 7. 代理模式 (Proxy Pattern) - [结构型]
 
 - **定义**：为对象提供代理以控制访问。
 - **区别**：适配器改接口，装饰器增功能，代理重在**控制**。
@@ -1262,7 +1242,7 @@ public class ProxyImage implements Image {
 }
 ```
 
-### 8. 模板模式 (Template Pattern) - [行为型]
+#### 8. 模板模式 (Template Pattern) - [行为型]
 
 - **定义**：在抽象类中固定算法骨架，具体步骤延迟到子类。
 
@@ -1281,7 +1261,7 @@ public abstract class Game {
 }
 ```
 
-### 9. 命令模式 (Command Pattern) - [行为型]
+#### 9. 命令模式 (Command Pattern) - [行为型]
 
 - **定义**：将请求封装为对象。
 - **三角色**：`Receiver` (执行者), `Command` (命令接口), `Invoker` (请求者)。
@@ -1300,7 +1280,7 @@ public class Broker {
 }
 ```
 
-### 10. 装饰器模式 (Decorator Pattern) - [结构型]
+#### 10. 装饰器模式 (Decorator Pattern) - [结构型]
 
 - **定义**：动态添加职责，比继承更灵活。
 
@@ -1316,22 +1296,22 @@ public abstract class ShapeDecorator implements Shape {
 }
 ```
 
-### 11. 迭代器模式 (Iterator Pattern) - [行为型]
+#### 11. 迭代器模式 (Iterator Pattern) - [行为型]
 
 - **定义**：顺序访问集合元素，无需暴露内部表示。
 - **关键接口**：`hasNext()`, `next()`。
 
-### 12. 空对象模式 (Null Object Pattern) - [行为型]
+#### 12. 空对象模式 (Null Object Pattern) - [行为型]
 
 - **定义**：用“不做事”的对象代替 NULL 检查。
 - **目的**：解决频繁的 `if (obj != null)` 逻辑判断。
 
-### 13. 策略模式 (Strategy Pattern) - [行为型]
+#### 13. 策略模式 (Strategy Pattern) - [行为型]
 
 - **定义**：封装一系列算法，使其可互相替换。
 - **优势**：避免多重 `if...else` 或 `switch` 语句。
 
-### 14. MVC 模式 (Model-View-Controller) - [综合架构型]
+#### 14. MVC 模式 (Model-View-Controller) - [综合架构型]
 
 - **Model**：存取数据和逻辑。
 - **View**：数据可视化（控制台输出等）。
@@ -1348,7 +1328,7 @@ public class StudentController {
 }
 ```
 
-## 四、 总结
+### 四、 总结
 
 这份 PPT 通过丰富的实例，将抽象的设计原则具体化。掌握这些模式的核心在于：
 

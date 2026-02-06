@@ -274,7 +274,8 @@ public class TestTree {
 }
 ```
 
-| **特性**     | **HashSet**       | **TreeSet**            |
+
+| 特性         | HashSet           | TreeSet                |
 | ------------ | ----------------- | ---------------------- |
 | **顺序**     | 无序（随机）      | **有序（按排序规则）** |
 | **性能**     | 极快（$O(1)$）    | 稍慢（$O(\log n)$）    |
@@ -317,10 +318,10 @@ public class TestMap {
 
 Java 对数组和泛型集合的处理方式完全不同：
 
-| **特性**       | **数组 (Arrays)**    | **集合 (ArrayList)**      |
-| -------------- | -------------------- | ------------------------- |
-| **多态行为**   | **协变 (Covariant)** | **不便性 (Invariant)**    |
-| **安全性检查** | **运行时 (Runtime)** | **编译时 (Compile-time)** |
+| 特性           | 数组 (Arrays)    | 集合 (ArrayList**)**  |
+| -------------- | ---------------- | --------------------- |
+| **多态行为**   | 协变 (Covariant) | 不便性 (Invariant)    |
+| **安全性检查** | 运行时 (Runtime) | 编译时 (Compile-time) |
 
 **代码演示陷阱：**
 
@@ -335,27 +336,27 @@ ArrayList<Animal> list = new ArrayList<Dog>(); // 编译错误！防止你后续
 
 
 
-这是 Java 泛型中最容易让人困惑的地方。图片展示了从“数组”到“泛型集合”的演进过程。
+**这是 Java 泛型中最容易让人困惑的地方。图片展示了从“数组”到“泛型集合”的演进过程。**
 
-### 1. 数组的多态 
+### **1. 数组的多态** 
 
-在 Java 中，数组是**协变**的。这意味着如果你有一个 `Animal[]` 类型的参数，你可以向它传递一个 `Dog[]`。
+**在 Java 中，数组是协变的。这意味着如果你有一个 `Animal[]` 类型的参数，你可以向它传递一个 `Dog[]`。**
 
-- **原理**：`Dog` 是一个 `Animal`（IS-A 关系），所以 `Dog` 数组也被视为一种 `Animal` 数组。
+- **原理：`Dog` 是一个 `Animal`（IS-A 关系），所以 `Dog` 数组也被视为一种 `Animal` 数组。**
 
-### 2. 泛型的陷阱 
+### **2. 泛型的陷阱** 
 
-泛型集合（如 `ArrayList`）与数组不同，它们是**不协变**的。
+**泛型集合（如 `ArrayList`）与数组不同，它们是不协变的。**
 
-- **问题**：虽然 `Dog` 是 `Animal`，但 `ArrayList<Dog>` **不是** `ArrayList<Animal>`。
-- **原因**：如果 Java 允许这样做，你可能会在 `takeAnimals(ArrayList<Animal> animals)` 方法里往原本只该装狗的 List 里塞进一只猫（`animals.add(new Cat())`），这会引发运行时崩溃。
+- **问题：虽然 `Dog` 是 `Animal`，但 `ArrayList<Dog>` 不是 `ArrayList<Animal>`。**
+- **原因：如果 Java 允许这样做，你可能会在 `takeAnimals(ArrayList<Animal> animals)` 方法里往原本只该装狗的 List 里塞进一只猫（`animals.add(new Cat())`），这会引发运行时崩溃。**
 
-### 3. 通配符解决方案 
+### **3. 通配符解决方案** 
 
-为了让方法能接受任何动物子类的 List，我们需要使用通配符 `? extends Animal`。
+**为了让方法能接受任何动物子类的 List，我们需要使用通配符 `? extends Animal`。**
 
-- **`ArrayList<? extends Animal>`**：这表示“一个存储某种 Animal 子类型的 ArrayList”。
-- **代价**：使用了这种语法后，你**不能**向该集合添加任何元素（除了 `null`），因为编译器无法确定这个 List 到底具体是什么类型。
+- **`ArrayList<? extends Animal>`：这表示“一个存储某种 Animal 子类型的 ArrayList”。**
+- **代价：使用了这种语法后，你不能向该集合添加任何元素（除了 `null`），因为编译器无法确定这个 List 到底具体是什么类型。**
 
 ```Java
 import java.util.*;
@@ -420,19 +421,19 @@ public class TestGenerics {
 
 
 
-## 六、 总结：场景化选型方案
+## **六、 总结：场景化选型方案**
 
-1. **列表读取**：保持读取顺序 $\rightarrow$ `ArrayList`。
+1. **列表读取：保持读取顺序 $\rightarrow$ `ArrayList`。**
 
-2. **外部排序**：需要灵活切换排序规则 $\rightarrow$ `Collections.sort()` + `Comparator`。
+2. **外部排序：需要灵活切换排序规则 $\rightarrow$ `Collections.sort()` + `Comparator`。**
 
-3. **防止重复**：快速过滤重复歌曲 $\rightarrow$ `HashSet`（需重写 `hashCode`/`equals`）。
+3. **防止重复：快速过滤重复歌曲 $\rightarrow$ `HashSet`（需重写 `hashCode`/`equals`）。**
 
-4. **持续有序**：系统需要时刻展示有序歌单 $\rightarrow$ `TreeSet`。
+4. **持续有序：系统需要时刻展示有序歌单 $\rightarrow$ `TreeSet`。**
 
-5. **快速检索**：通过 Key 找 Value $\rightarrow$ `HashMap`。
+5. **快速检索：通过 Key 找 Value $\rightarrow$ `HashMap`。**
 
-   - **代码演示**：
+   - **代码演示：**
 
    ```java
    HashMap<String, Integer> scores = new HashMap<String, Integer>();

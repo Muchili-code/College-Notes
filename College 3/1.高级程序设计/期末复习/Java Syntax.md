@@ -1,6 +1,6 @@
-[TOC]
-
 # Java SE
+
+[TOC]
 
 ## Java Syntax
 

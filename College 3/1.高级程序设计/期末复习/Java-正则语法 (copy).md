@@ -1,5 +1,11 @@
 # Java 中的正则表达式
 
+[TOC]
+
+> [!TIP]
+>
+> 正则基本，见[正则](./new_regex.html)
+
 Java 在 `java.util.regex` 包中提供支持。
 
 ## 1. String 类与基础语法
