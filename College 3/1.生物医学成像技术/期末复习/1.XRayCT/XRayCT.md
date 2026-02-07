@@ -70,16 +70,20 @@ X射线与物质的电子云发生反应，主要包括光电效应和康普顿�
 #### X射线衰减的几何特性
 
 **窄射线、单能光子（Narrow beam, monoenergetic photons ）**
+
 $$
 N = N_{0}e^{-\mu x}\\
 I = I_0e^{-\mu x}\\
 I= I_0e^{-\int \mu(x)dx}\\
 也就是透射率t_z 的事情
 $$
+
 **窄射线、多能光子（Narrow beam, polyenergetic photons ）**
+
 $$
 I= \int \sigma(E)e^{-\int \mu(E,x)dx}dE\\
 $$
+
 **宽射线情况（Broad beam）**
 
 由于康普顿散射，更多的光子被探测到。但也因此，实际探测到的能量比窄射线情况低
@@ -125,7 +129,7 @@ $$
 $$
 I_0 = \frac{I_s}{4\pi d^2}\\
 
-𝐼_𝑟= 𝐼_0 \cos^{2}\theta = \frac{I_s}{4\pi r^2}
+I_r= I_0 \cos^{2}\theta = \frac{I_s}{4\pi r^2}
 $$
 
 ##### 倾斜效应
@@ -135,9 +139,11 @@ I_d = I_0 \cos \theta
 $$
 
 X射线束发散与平面探测器的倾斜效应是**可乘**的，因此
+
 $$
 I_d = I_0 \cos^3 \theta
 $$
+
 **阳极跟效应**
 
 计算忽略
@@ -147,6 +153,7 @@ $$
 相当于信号进一步衰减，运用X射线的衰减函数
 
 也是<font color=red>可乘的</font>
+
 $$
 I_d(x,y) = I_0 \cos^3 \theta e^{-\int_0^{L/\cos \theta} \mu(x,y) · {\rm d}l}\\
 或者简单点：\\
@@ -160,9 +167,11 @@ $$
 > [!NOTE]
 >
 > ==最终方程==
+> 
 > $$
 > I_d(x,y) = I_0 \cos^3 \theta· e^{-\mu L/\cos \theta }
 > $$
+> 
 
 
 
@@ -193,6 +202,7 @@ x = r\cos\theta-s\sin\theta, y = r\sin\theta-s\cos\theta\\
 I_\theta(r) = I_0e^{-\int_L \mu(x,y)ds}\\
 p_\theta(r) = -\ln\frac{I_\theta(r)}{I_0}
 $$
+
 p: μ在投影方向上的积分.
 
 弦图: 横坐标r, 抽样的距离; 纵坐标θ, 视图之间的旋转间隔. $p(n\Delta r,m\Delta \theta)$
@@ -209,9 +219,11 @@ $$
 奈奎斯特: 采样距离r不能超过s/2.
 
 反变换, 反投影
+
 $$
 b(x,y) = \sum p(r,\theta_i)\Delta\theta
 $$
+
 其中r由x,y,θ决定.本质是二维反傅里叶变换, 所以需要下面的其他方法.
 
 ### 投影定理
@@ -224,6 +236,7 @@ $$
 4. 二维反傅里叶变换, 得到原图.
 
 步骤3中的插值会产生伪影, 使得直接傅里叶重建不如滤波后投影(FBP)重建流行.
+
 $$
 2D-FT: F(k_x,k_y) = \iint f(x,y)e^{-2\pi i(k_xx+k_yy)}dxdy\\
 k_x = r\cos\theta, k_y = r\sin\theta, k = \sqrt{k_x^2+k_y^2}\\
@@ -283,6 +296,7 @@ $$
 I_\theta(r) = \int \sigma(E)e^{-(A_1(r,\theta)\mu_1(E)+A_2(r,\theta)\mu_2(E))}dE\\
 solve\ A_1\ and\ A_2
 $$
+
 **应用**
 
 1. 消除束硬化伪影

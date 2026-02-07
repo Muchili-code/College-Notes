@@ -32,6 +32,7 @@ $^4He$, $^{12}C$, $^{16}O$ and <span style="vertical-align:super;">32</span>S.
 粒子自旋在磁场中的产生进动，即<span style="color:#FF3399; font-weight:bold;">拉莫进动</span>。
 
 由公式推导，得 拉莫频率为
+
 $$
 \omega_0 = \gamma B_o
 $$
@@ -85,6 +86,7 @@ $$
 #### 翻转角
 
 M旋转的角度叫做**翻转角**。翻转方向符合“***<u>左手定则</u>***”（见PPT关于翻转角从介绍）
+
 $$
 \alpha=\gamma\int_0^{\tau_p}B_1^e(t)dt
 $$
@@ -114,6 +116,7 @@ $$
 纵向弛豫又称自旋-晶格弛豫（spin-lattice）。
 
 是纵向磁化矢量逐渐恢复至平衡磁化矢量的过程，分子的运动频率越接近拉莫频率，恢复越快，其时间常数为<span style="color:#FF8000; font-weight:bold;">纵向弛豫时间</span> $T_1$
+
 $$
 M_{z}(t)= M_{0}\left(1-e^{-\frac{t}{T_{1}}}\right)+M_{z}(0^{+})e^{-t/T_{1}}
 $$
@@ -121,10 +124,13 @@ $$
 ### 布洛赫方程
 
 超级牛逼的微分方程
+
 $$
 \frac{dM(t)}{dt}=\gamma M(t)\times B(t)-R\{M(t)-M_0\}
 $$
+
 其中
+
 $$
 B(t)= B_0+B_1(t) \\
 R =
@@ -136,6 +142,7 @@ R =
 $$
 
 方程分解，则
+
 $$
 \frac{d}{dt}
 \begin{pmatrix}
@@ -166,15 +173,18 @@ $$
 #### 进动
 
 **磁化矢量**
+
 $$
 M_0 = \frac{N\gamma^2(h/2\pi)^2B_0I_z(I_z+1)}{3kT} \\
 M_0 = \Delta n\frac23\gamma(h/2\pi)I_z(I_z+1)
 $$
+
 **进动**
 
 绕着 $B_0$ 旋转的进动
 静止坐标系: $(\frac{dM}{dt})_{lab} = (\frac{dM}{dt})_{rot}+\omega\times M$
 旋转坐标系: $(\frac{dM}{dt})_{rot} = \gamma M\times B_{eff}$; $B_{eff} = B+\omega/\gamma$.
+
 $$
 B = B_0 + \frac\omega\gamma(ratating)\\
 \frac{dM}{dt} = M\times\gamma(B+B_1(t))\\
@@ -182,6 +192,7 @@ B_1(t) = B_1e^{-i\omega_0t}\\
 \omega_1 = \gamma B_1\\
 \alpha = \omega_1 t(flip\ angle)
 $$
+
 射频脉冲制造 B1
 
 #### 拉莫尔公式
@@ -224,33 +235,37 @@ T1: TR TE 长, TR 长 T1 影响小, 信号幅度低.
 自由感应衰减: 正余弦 × 指数衰减
 
 傅里叶变换后: 余弦信号 $\frac12[\delta(\omega-\omega_0)+\delta(\omega+\omega_0)]$.
+
 指数信号: $\frac{a+i\omega}{a^2+\omega^2},a = 1/T_2$.
 
 ==幅度和频率, 第四份 PPT==
 
 **化学位移**
 $B_{eff} = B_0(1-\sigma), \omega_{eff} = \omega_0(1-\sigma)$ → $\Delta f = \frac\gamma {2\pi}B_0\times \Delta\delta\times10^{-6}$
+
 结论: $B_0$ 和尖峰的间隔之间有线性关系.
+
 化学位移: 由于轨道电子的屏蔽而引起的共振频率的小位移.
 
 ### 梯度线圈
 
 #### 线圈
 
-z 方向梯度: 麦克斯韦线圈, 同螺线管绕在环上
-xy 方向梯度: 格雷线圈, 方形框贴在环上
+z 方向梯度: 麦克斯韦线圈, 同螺线管绕在环上；xy 方向梯度: 格雷线圈, 方形框贴在环上
 
 参数: Gmax 最大梯度, dB/dx; slew rate 上升的最大值的速度.
 
 #### 选层
 
 $f_{RF} = \gamma(B_0+GL)$.
+
 选层位置: G 不变更改 RF 中心频率; RF 不变更改 G 大小
+
 选层厚度: G 不变, RF 和厚度正比; RF 不变, 厚度和 G 反比.
 
 #### 编码
 
-**频率编码**: 编码后经过傅里叶变换, 不同频率对应不同的锋.
+**频率编码**: 编码后经过傅里叶变换, 不同频率对应不同的锋；
 **相位编码**: 编码相位
 
 y 方向为相位编码, 优先利用 $G_y$ 生成, 生成后关闭, 保留固定相位; x 方向为频率编码, 打开 $G_x$ 后即产生.
@@ -265,18 +280,21 @@ y 方向数量决定重复采集的次数(k 空间的列数), 频率编码采集
 $F(k_x,k_y) = \sum_{x,y}f(x,y)e^{-i2\pi(k_xx+k_yy)}$, $f(x,y)$ 对应信号
 
 坐标轴: $k_x,k_y$.
+
 $$
 \Delta\omega = \gamma xG, \Delta\phi = \gamma xGt = 2π(kx)\\
 k_x = \frac{\gamma}{2\pi}\int_0^tG_x(\tau)d\tau, k_y = \frac{\gamma}{2\pi}\int_0^tG_y(\tau)d\tau
 $$
+
 中心部分低频, 对应模糊图像, 可见基本轮廓.决定对比度
+
 外周部分高频, 对应精细细节, 但不可见物体.决定分辨力
 
 #### FFT 和 Radon
 
 ## 成像
 
-(但是这部分上面都写过了?这里不写了，不过要注意这部分是整个MRI体系中最为重要的地方，重在理解，公式不多，可以看《微雕》
+(这部分上面都写过了?这里不写了，不过要注意这部分是整个MRI体系中最为重要的地方，重在理解，公式不多，可以看《微雕》
 
 ### TR 和 TE
 
