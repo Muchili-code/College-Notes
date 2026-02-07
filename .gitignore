@@ -29,7 +29,8 @@ College\ 2/2.数据结构与算法分析（FDS）-Fundemental\ Data\ Structure/�
 # 忽略 College 3 文件夹下的所有内容
 College\ 3/*
 
-# 排除掉 '1.嵌入式系统' 目录
+# 排除掉嵌入式系统
+# 不忽略 '1.嵌入式系统' 目录
 !College\ 3/1.嵌入式系统/
 # 忽略 1.嵌入式系统/ 目录下除 '自己笔记/' 之外的其他内容
 College\ 3/1.嵌入式系统/*
@@ -40,7 +41,27 @@ College\ 3/1.嵌入式系统/*
 College\ 3/1.误差理论和数据处理/*
 !College\ 3/1.误差理论和数据处理/期末复习/
 
-#　排除掉高级程序设计
+# 排除掉高级程序设计
 !College\ 3/1.高级程序设计/
 College\ 3/1.高级程序设计/*
 !College\ 3/1.高级程序设计/期末复习/
+
+# 排除掉医学成像
+!College\ 3/1.生物医学成像技术/
+College\ 3/1.生物医学成像技术/*
+!College\ 3/1.生物医学成像技术/期末复习/
+College\ 3/1.生物医学成像技术/期末复习/*
+
+!College\ 3/1.生物医学成像技术/期末复习/1.XRayCT
+!College\ 3/1.生物医学成像技术/期末复习/✔PET_by_lzc.pdf
+!College\ 3/1.生物医学成像技术/期末复习/PET.md
+!College\ 3/1.生物医学成像技术/期末复习/超声习题.md
+!College\ 3/1.生物医学成像技术/期末复习/✔US_by_lzc.pdf
+!College\ 3/1.生物医学成像技术/期末复习/光学.md
+!College\ 3/1.生物医学成像技术/期末复习/5. MRI
+College\ 3/1.生物医学成像技术/期末复习/5. MRI/MRI-new.md
+
+!College\ 3/1.生物医学成像技术/期末复习/微雕.pdf
+!College\ 3/1.生物医学成像技术/期末复习/微雕.docx
+!College\ 3/1.生物医学成像技术/期末复习/微雕-simplised.pdf
+!College\ 3/1.生物医学成像技术/期末复习/微雕-simplised.docx
