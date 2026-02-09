@@ -21,7 +21,7 @@
 - 访问控制修饰符 : default, public , protected, private
 - 非访问控制修饰符 : final, abstract, static, synchronized
 
-在 [后面的章节中](./Java修饰符.md) 我们会深入讨论 Java 修饰符。
+在 [后面的章节中](./Java修饰符.md) 我们会深入讨论 Java 修饰符。（详见[Java超全语法](./Java超全基本语法.md)）
 
 ------
 
