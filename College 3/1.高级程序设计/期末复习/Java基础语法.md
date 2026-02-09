@@ -21,7 +21,7 @@
 - 访问控制修饰符 : default, public , protected, private
 - 非访问控制修饰符 : final, abstract, static, synchronized
 
-在 [后面的章节中](./Java修饰符) 我们会深入讨论 Java 修饰符。
+在 [后面的章节中](./Java修饰符.md) 我们会深入讨论 Java 修饰符。
 
 ------
 
@@ -33,7 +33,7 @@ Java 中主要有如下几种类型的变量。
 - 类变量（静态变量）
 - 成员变量（非静态变量）
 
-具体分析见 [Java 变量类型](./Java变量类型)
+具体分析见 [Java 变量类型](./Java变量类型.md)
 
 ------
 
